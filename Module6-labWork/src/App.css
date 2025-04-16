@@ -9,3 +9,24 @@ body{
   font-size: 16px;
   font-weight: bold; 
 }
+
+h1{
+  font-size: 16px;
+}
+
+.exerciseBox{
+  border: 3px solid black;
+  padding: 10px
+}
+
+.exerciseName{
+  font-family: sans-serif;
+  font-size: 18px;
+  color: green;
+}
+
+.catList{
+  font-family: sans-serif;
+  font-size: 12px;
+  color: red;
+}
