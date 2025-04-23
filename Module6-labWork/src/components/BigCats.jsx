@@ -1,7 +1,8 @@
-//------------------- Module 6: Lab Exercise 2 and 4 ------------------------
+//------------------- Module 6: Lab Exercise 2, 4 and 5 ------------------------
 
-import SingleCat from "./SingleCat";
 import { useState } from "react";
+import SingleCat from "./SingleCat";
+import AddCatForm from "./AddCatForm"
 
 const bigCats = [
     { name: 'Cheetah', latinName: 'Acinonyx jubatus' },
@@ -28,8 +29,9 @@ function BigCats(){
 
     //---- added state (ex 4) ----------
     const [cats, setCats] = useState(bigCats);
+    const [updatedCats, setUpdatedCats] = useState(bigCats);
 
-    //----- functions for setting new values to the list (ex 4) -----
+    //----- functions for changing the list (ex 4) -----
     const alphabetCats = () => {
         const newCats = [...cats].sort((a, b) => a.name.localeCompare(b.name));
         
@@ -48,19 +50,42 @@ function BigCats(){
         return setCats(newCats);
     }
     //-----------------------------------------------------------
+    
+    //----- functions for setting new values to the list (ex 4) -----
+    const handleAddCat = (newCat) => {
+        setCats([...cats, newCat]);
+        setUpdatedCats([...updatedCats, newCat]); //save the new data for 'Full List'
+    }
+    //-----------------------------------------------------------
 
-    const renderCat = cats.map(cat => (
-         <SingleCat 
-            key={Math.random()}
-            name={cat.name}
-            latinName={cat.latinName} />
+    //----- functions for deleting cat (ex 5) -----
+    const deleteCat = (catName) => {
+        const newCats = [...cats].filter(cat => !(cat.name === catName));
+        
+        setCats(newCats);
+        setUpdatedCats(newCats); //save the new data for 'Full List'
+    }
+    //-----------------------------------------------------------
+
+
+    const renderCat = cats.map(cat => (  
+         <>
+            <SingleCat 
+                key={Math.random()}
+                name={cat.name}
+                latinName={cat.latinName} 
+                photo={cat.photo} />
+            <Button onClick={() => deleteCat(cat.name)}> 
+                Delete Cat
+            </Button>
+        </>
         )
     )
     
     return (
         <>
             <div className="catList">
-                <ul> { renderCat } </ul>
+                { renderCat }
             </div>
 
             {/* ----- Added Buttons (ex 4) --------*/}
@@ -73,9 +98,12 @@ function BigCats(){
             <Button onClick={pantheraCats}> 
                 Show Panthera family
             </Button>
-            <Button onClick={() => setCats(bigCats)}> 
+            <Button onClick={() => setCats(updatedCats)}> 
                 Full List
-            </Button>  
+            </Button>
+
+             {/* ----- Added Form (ex 5) --------*/}
+             <AddCatForm onAddCat={handleAddCat} />  
         </>
     )
 }
