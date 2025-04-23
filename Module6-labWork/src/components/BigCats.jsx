@@ -1,9 +1,9 @@
-//------------------- Module 6: Lab Exercise 2 ------------------------
-
+//------------------- Module 6: Lab Exercise 2 and 4 ------------------------
 
 import SingleCat from "./SingleCat";
+import { useState } from "react";
 
-const cats = [
+const bigCats = [
     { name: 'Cheetah', latinName: 'Acinonyx jubatus' },
     { name: 'Cougar', latinName: 'Puma concolor' },
     { name: 'Jaguar', latinName: 'Panthera onca' },
@@ -13,7 +13,41 @@ const cats = [
     { name: 'Tiger', latinName: 'Panthera tigris' }
 ]
 
-function BigCats(props){
+function Button({ onClick, children }) {
+    return (
+        <div>
+            <button onClick={onClick}>
+                {children}
+            </button>
+        </div>
+    )
+}
+
+
+function BigCats(){
+
+    //---- added state (ex 4) ----------
+    const [cats, setCats] = useState(bigCats);
+
+    //----- functions for setting new values to the list (ex 4) -----
+    const alphabetCats = () => {
+        const newCats = [...cats].sort((a, b) => a.name.localeCompare(b.name));
+        
+        return setCats(newCats);
+    }
+
+    const reverseCats = () => {
+        const newCats = [...cats].sort((a, b) => b.name.localeCompare(a.name));
+        
+        return setCats(newCats);
+    }
+
+    const pantheraCats = () => {
+        const newCats = [...cats].filter(cat => cat.latinName.includes("Panthera"));
+        
+        return setCats(newCats);
+    }
+    //-----------------------------------------------------------
 
     const renderCat = cats.map(cat => (
          <SingleCat 
@@ -24,9 +58,25 @@ function BigCats(props){
     )
     
     return (
-        <div className="catList">
-            <ul> { renderCat } </ul>
-        </div>  
+        <>
+            <div className="catList">
+                <ul> { renderCat } </ul>
+            </div>
+
+            {/* ----- Added Buttons (ex 4) --------*/}
+            <Button onClick={alphabetCats}> 
+                Sort Alphabetically
+            </Button>
+            <Button onClick={reverseCats}> 
+                Reverse List
+            </Button>
+            <Button onClick={pantheraCats}> 
+                Show Panthera family
+            </Button>
+            <Button onClick={() => setCats(bigCats)}> 
+                Full List
+            </Button>  
+        </>
     )
 }
 
