@@ -1,11 +1,10 @@
-import { useState } from 'react'
 import './App.css'
 import Greeting from './components/Greeting'
 import Exercises from './components/Exercises'
 import BigCats from './components/BigCats'
+import Emoji from './components/Emoji'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
@@ -19,6 +18,11 @@ function App() {
       <div className="exerciseBox">
         <Exercises name="Exercise 2"></Exercises>
         <BigCats></BigCats>
+      </div>
+
+      <div className="exerciseBox">
+        <Exercises name="Exercise 3"></Exercises>
+        <Emoji></Emoji>
       </div>
     </>
   )
