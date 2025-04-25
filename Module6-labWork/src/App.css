@@ -2,7 +2,7 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   margin: 0;
 
   font-family: Arial, sans-serif;
@@ -33,5 +33,10 @@ h1{
 
 .singleCat{
   border: 1px solid black;
+  padding: 5px;
+}
+
+.calculator{
+  border: 1px solid green;
   padding: 5px;
 }
